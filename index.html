@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>vue2</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-for="(item, index) in times">
+        <p>{{index+1}} - {{item.name}}</p>
+        <img v-bind:src="item.shield" :alt="item.name">
+      </div>
+      <ul>
+        <li v-for="(item, key, index) in alphabet">
+          {{index}} - {{key}} - {{item}} 
+        </li>
+      </ul>
+    </div>
+    <script src="/dist/build.js"></script>
+  </body>
+</html>
