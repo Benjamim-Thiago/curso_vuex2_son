@@ -5,16 +5,51 @@
     <title>vue2</title>
   </head>
   <body>
-    <div id="app">
-      <div v-for="(item, index) in times">
-        <p>{{index+1}} - {{item.name}}</p>
-        <img v-bind:src="item.shield" :alt="item.name">
+    <div id="app" style="display:none" class="container">
+      <div class="row">
+        <h3>Tabela campeonato brasileiro série A 2016</h3>
+        <br><br>
+        <table class="table table-striped">
+          <thead>
+            <th>Time</th>
+            <th>Pontos</th>
+            <th>GM</th>
+            <th>GS</th>
+            <th>Saldo</th>
+          </thead>
+          <tbody>
+            <tr v-for="item in times" :key="item.id">
+              <td>
+                <img v-bind:src="item.shield" :alt="item.name" style="height: 30px; width: 30px;">
+                <strong>{{item.name}}</strong>
+              </td>
+              <td>{{item.points}}</td>
+              <td>{{item.gscored}}</td>
+              <td>{{item.gconceded}}</td>
+              <td>Saldo</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <ul>
-        <li v-for="(item, key, index) in alphabet">
-          {{index}} - {{key}} - {{item}} 
-        </li>
-      </ul>
+      <div class="row">
+        <form action="" class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control">
+            <label for="" class="control-label">
+                <img style="height: 30px; width: 30px;">
+            </label>
+          </div>
+
+          <span>X</span>
+          
+          <div class="form-group">
+            <label for="">
+              <img style="height: 30px; width: 30px;">
+            </label>
+            <input type="text" class="form-control">
+          </div>
+        </form>
+      </div>
     </div>
     <script src="/dist/build.js"></script>
   </body>
