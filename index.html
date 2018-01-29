@@ -11,12 +11,17 @@
         <a class="btn btn-primary" @click.prevent="createNewSoccer">Novo jogo</a>
         <br/><br/>
         <div v-if="view == 'table'">
+          <div class="form-inline pull-right">
+              <input type="search" class="form-control" placeholder="Buscar" v-model="search">
+          </div>
           <table class="table table-striped">
             <thead>
-              <th v-for="column in columns">{{column | ucwords}}</th>
+              <th v-for="(column, index) in columnsNames">                 
+                  <a href="#" @click.prevent="sortBy(index)">{{column | ucwords}}</a>
+              </th>
             </thead>
             <tbody>
-              <tr v-for="item in teams" :key="item.id">
+              <tr v-for="item in listTeams" :key="item.id">
                 <td>
                   <img v-bind:src="item.shield" :alt="item.name" style="height: 30px; width: 30px;">
                   <strong>{{item.name}}</strong>

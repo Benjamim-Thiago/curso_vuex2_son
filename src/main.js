@@ -8,7 +8,13 @@ require('bootstrap');
 let myVue = new Vue({
   el: '#app',
   data:{
-    columns: ['nome', 'pontos', 'gm', 'gs', 'saldo'],
+    order: {
+      keys: ['pontos', 'gm', 'gs'],
+      sort: ['desc', 'desc', 'asc']
+    },
+    columnsNames: ['nome', 'pontos', 'gm', 'gs', 'saldo'],
+    columns: ['name', 'points', 'gscored', 'gconceded'],
+    search:'',
     teams: [
       new Team('Palmeiras', require('./assets/palmeiras_60x60.png')),
       new Team('Flamengo', require('./assets/flamengo_60x60.png')),
@@ -64,7 +70,19 @@ let myVue = new Vue({
     },
     showView(view){
       this.view = view;
+    },
+    sortBy(index){
+      this.order.keys = this.columns[index];
+      this.order.sort = this.order.sort == 'desc' ? 'asc': 'desc';
     }
+  },
+  computed: {
+    listTeams(){
+      let collection = _.orderBy(this.teams, this.order.keys, this.order.sort);
+      return _filter(collection, item => {
+        item.name.indexOf(this.search)
+      })
+  }
   },
   filters: {
     goalDifference(team){
