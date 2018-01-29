@@ -1,4 +1,4 @@
-export class Time{
+export class Team{
     constructor(name, shield){
         this.name = name;
         this.shield = shield;

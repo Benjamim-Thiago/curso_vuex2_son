@@ -18,7 +18,7 @@
             <th>Saldo</th>
           </thead>
           <tbody>
-            <tr v-for="item in times" :key="item.id">
+            <tr v-for="item in teams" :key="item.id">
               <td>
                 <img v-bind:src="item.shield" :alt="item.name" style="height: 30px; width: 30px;">
                 <strong>{{item.name}}</strong>
@@ -32,24 +32,27 @@
         </table>
       </div>
       <div class="row">
-        <form action="" class="form-inline">
-          <div class="form-group">
-            <input type="text" class="form-control">
-            <label for="" class="control-label">
-                <img style="height: 30px; width: 30px;">
-            </label>
-          </div>
-
-          <span>X</span>
-          
-          <div class="form-group">
-            <label for="">
-              <img style="height: 30px; width: 30px;">
-            </label>
-            <input type="text" class="form-control">
-          </div>
-        </form>
-      </div>
+          <form action="" class="form-inline">
+            <div class="form-group">
+              <input type="text" class="form-control">
+              <label for="" class="control-label">
+                  {{newSoccerMatch.homeTeam.team.name}}
+                  <img  :src="newSoccerMatch.homeTeam.team.shield" style="height: 30px; width: 30px;">
+              </label>
+            </div>
+  
+            <span>X</span>
+            
+            <div class="form-group">
+              <label for="">
+                <img  :src="newSoccerMatch.visitantTeam.team.shield" style="height: 30px; width: 30px;">
+                {{newSoccerMatch.visitantTeam.team.name}}
+              </label>
+              <input type="text" class="form-control">
+            </div>
+            <button class="btn btn-primary">Fim do Jogo</button>
+          </form>
+        </div>
     </div>
     <script src="/dist/build.js"></script>
   </body>
