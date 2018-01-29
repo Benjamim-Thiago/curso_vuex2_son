@@ -8,6 +8,7 @@ require('bootstrap');
 let myVue = new Vue({
   el: '#app',
   data:{
+    columns: ['nome', 'pontos', 'gm', 'gs', 'saldo'],
     teams: [
       new Team('Palmeiras', require('./assets/palmeiras_60x60.png')),
       new Team('Flamengo', require('./assets/flamengo_60x60.png')),
@@ -40,17 +41,38 @@ let myVue = new Vue({
         team: null,
         goals: 0
       }
+    },
+    view: 'table'
+  },
+  methods:{
+    endSoccer(){
+      let adversaryTeam = this.newSoccerMatch.visitantTeam.team;
+      let goals = +this.newSoccerMatch.homeTeam.goals;
+      let adversaryGoals = +this.newSoccerMatch.visitantTeam.goals;
+      this.newSoccerMatch.homeTeam.team.endOfSoccerMatch(adversaryTeam, goals, adversaryGoals);
+      this.showView('table');
+    },
+    createNewSoccer(){
+      let homeIndex = Math.floor(Math.random() * 20),
+          visitantIndex = Math.floor(Math.random() * 20);
+  
+      this.newSoccerMatch.homeTeam.team = this.teams[homeIndex];
+      this.newSoccerMatch.homeTeam.goals = 0;
+      this.newSoccerMatch.visitantTeam.team = this.teams[visitantIndex];
+      this.newSoccerMatch.visitantTeam.goals = 0;
+      this.showView('newSoccer');
+    },
+    showView(view){
+      this.view = view;
     }
   },
-  created(){
-    let homeIndex = Math.floor(Math.random() * 20),
-        visitantIndex = Math.floor(Math.random() * 20);
-
-    this.newSoccerMatch.homeTeam.team = this.teams[homeIndex];
-    this.newSoccerMatch.homeTeam.goals = 0;
-    this.newSoccerMatch.visitantTeam.team = this.teams[visitantIndex];
-    this.newSoccerMatch.visitantTeam.goals = 0;
-
+  filters: {
+    goalDifference(team){
+      return team.gscored - team.gconceded;
+    },
+    ucwords(value){
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
   },
   mounted: function(){
       document.getElementById('app').style.display = "block";

@@ -8,40 +8,39 @@
     <div id="app" style="display:none" class="container">
       <div class="row">
         <h3>Tabela campeonato brasileiro série A 2016</h3>
-        <br><br>
-        <table class="table table-striped">
-          <thead>
-            <th>Time</th>
-            <th>Pontos</th>
-            <th>GM</th>
-            <th>GS</th>
-            <th>Saldo</th>
-          </thead>
-          <tbody>
-            <tr v-for="item in teams" :key="item.id">
-              <td>
-                <img v-bind:src="item.shield" :alt="item.name" style="height: 30px; width: 30px;">
-                <strong>{{item.name}}</strong>
-              </td>
-              <td>{{item.points}}</td>
-              <td>{{item.gscored}}</td>
-              <td>{{item.gconceded}}</td>
-              <td>Saldo</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="row">
-          <form action="" class="form-inline">
+        <a class="btn btn-primary" @click.prevent="createNewSoccer">Novo jogo</a>
+        <br/><br/>
+        <div v-if="view == 'table'">
+          <table class="table table-striped">
+            <thead>
+              <th v-for="column in columns">{{column | ucwords}}</th>
+            </thead>
+            <tbody>
+              <tr v-for="item in teams" :key="item.id">
+                <td>
+                  <img v-bind:src="item.shield" :alt="item.name" style="height: 30px; width: 30px;">
+                  <strong>{{item.name}}</strong>
+                </td>
+                <td>{{item.points}}</td>
+                <td>{{item.gscored}}</td>
+                <td>{{item.gconceded}}</td>
+                <td>{{ item | goalDifference}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div v-else>
+          <form class="form-inline">
             <div class="form-group">
-              Gol(s)={{newSoccerMatch.homeTeam.goals}}
-              <input type="text" class="form-control" v-model="newSoccerMatch.homeTeam.goals">
+              
+              <input type="text" class="form-control" v-model="newSoccerMatch.homeTeam.goals" @keyup.enter="endSoccer()">
               <label for="" class="control-label">
                   {{newSoccerMatch.homeTeam.team.name}}
                   <img  :src="newSoccerMatch.homeTeam.team.shield" style="height: 30px; width: 30px;">
               </label>
             </div>
-  
+
             <span>X</span>
             
             <div class="form-group">
@@ -49,13 +48,15 @@
                 <img  :src="newSoccerMatch.visitantTeam.team.shield" style="height: 30px; width: 30px;">
                 {{newSoccerMatch.visitantTeam.team.name}}
               </label>
-              Gol(s)={{newSoccerMatch.visitantTeam.goals}}
-              <input type="text" class="form-control" v-model="newSoccerMatch.visitantTeam.goals">
+              
+              <input type="text" class="form-control" v-model="newSoccerMatch.visitantTeam.goals" @keyup.enter="endSoccer()">
             </div>
-            <button class="btn btn-primary">Fim do Jogo</button>
+            <button class="btn btn-primary" @click.prevent="endSoccer()">Fim do Jogo</button>
           </form>
         </div>
+      </div>
     </div>
+
     <script src="/dist/build.js"></script>
   </body>
 </html>
