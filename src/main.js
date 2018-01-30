@@ -79,10 +79,10 @@ let myVue = new Vue({
   computed: {
     listTeams(){
       let collection = _.orderBy(this.teams, this.order.keys, this.order.sort);
-      return _filter(collection, item => {
-        item.name.indexOf(this.search)
+      return _.filter(collection, item => {
+        return item.name.toLowerCase().indexOf(this.search.toLowerCase()) >=0;
       })
-  }
+    }
   },
   filters: {
     goalDifference(team){
