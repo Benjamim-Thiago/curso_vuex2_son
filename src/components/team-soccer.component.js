@@ -45,17 +45,16 @@ export default {
       let goals = +this.newSoccerMatch.homeTeam.goals;
       let adversaryGoals = +this.newSoccerMatch.visitantTeam.goals;
       this.newSoccerMatch.homeTeam.team.endOfSoccerMatch(adversaryTeam, goals, adversaryGoals);
-      this.showView('table');
+      this.$parent.showView('table');
     },
-    createNewSoccer(){
+    initSoccer(teams){
       let homeIndex = Math.floor(Math.random() * 20),
           visitantIndex = Math.floor(Math.random() * 20);
   
-      this.newSoccerMatch.homeTeam.team = this.teams[homeIndex];
+      this.newSoccerMatch.homeTeam.team = teams[homeIndex];
       this.newSoccerMatch.homeTeam.goals = 0;
-      this.newSoccerMatch.visitantTeam.team = this.teams[visitantIndex];
+      this.newSoccerMatch.visitantTeam.team = teams[visitantIndex];
       this.newSoccerMatch.visitantTeam.goals = 0;
-      this.showView('newSoccer');
     }
   }
 };

@@ -5,7 +5,7 @@ export default {
     template: 
     `
         <span>
-          <a class="btn btn-primary" @click.prevent="createNewSoccer">Novo jogo</a>
+          <a class="btn btn-primary" @click.prevent="showNewSoccer">Novo jogo</a>
           <br/><br/>
           <div class="form-inline pull-right">
               <input type="search" class="form-control" placeholder="Buscar" v-model="search">
@@ -66,15 +66,19 @@ export default {
       }
     },
     methods:{
-      createNewSoccer(){
-        let homeIndex = Math.floor(Math.random() * 20),
+      showNewSoccer(){
+        /*let homeIndex = Math.floor(Math.random() * 20),
             visitantIndex = Math.floor(Math.random() * 20);
     
         this.newSoccerMatch.homeTeam.team = this.teams[homeIndex];
         this.newSoccerMatch.homeTeam.goals = 0;
         this.newSoccerMatch.visitantTeam.team = this.teams[visitantIndex];
         this.newSoccerMatch.visitantTeam.goals = 0;
-        this.showView('newSoccer');
+        */        
+        this.$parent.showView('newSoccer');
+        //setTimeout(()=>{
+          this.$parent.$children[1].initSoccer(this.teams);
+        //});
       },
       sortBy(index){
         this.order.keys = this.columns[index];
