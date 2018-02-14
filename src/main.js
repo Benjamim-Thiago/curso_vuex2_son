@@ -3,6 +3,7 @@ import {Team} from './team/team'
 import AppComponent from './components/app.component';
 import './filters';
 import _ from 'lodash';
+import store from './store';
 
 require('style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css');
 require('bootstrap');
@@ -11,6 +12,7 @@ let myVue = new Vue({
   el: '#app',
   components:{
     "app": AppComponent
-  }  
+  },
+  store  
 });
 

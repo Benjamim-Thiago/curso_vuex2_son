@@ -1,3 +1,5 @@
+import event from '../event';
+
 export default {
   template: `        
     <span>
@@ -45,7 +47,7 @@ export default {
       let goals = +this.newSoccerMatch.homeTeam.goals;
       let adversaryGoals = +this.newSoccerMatch.visitantTeam.goals;
       this.newSoccerMatch.homeTeam.team.endOfSoccerMatch(adversaryTeam, goals, adversaryGoals);
-      this.$parent.showView('table');
+      event.$emit('show-team-list');
     },
     initSoccer(teams){
       let homeIndex = Math.floor(Math.random() * 20),

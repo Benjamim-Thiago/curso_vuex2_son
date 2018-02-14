@@ -1,5 +1,6 @@
 export class Team{
-    constructor(name, shield) {
+    constructor(id, name, shield) {
+        this.id = id;
         this.name = name;
         this.shield = shield;
         this.points = 0;
