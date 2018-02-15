@@ -1,8 +1,9 @@
 import event from '../event';
+import store from '../store';
 
 export default {
   template: `        
-    <span>
+    <div style="margin-top:20px;">
         <form class="form-inline">
         <div class="form-group">
             <input type="text" class="form-control" v-model="newSoccerMatch.homeTeam.goals" @keyup.enter="endSoccer()">
@@ -24,9 +25,12 @@ export default {
         </div>
         <button class="btn btn-primary" @click.prevent="endSoccer()">Fim do Jogo</button>
         </form>
-    </span>
+    </div>
   
   `,
+  mounted(){
+    this.initSoccer(store.state.teams);
+  },
   data(){
     return {
         newSoccerMatch: {
@@ -44,10 +48,15 @@ export default {
   methods:{
     endSoccer(){
       let adversaryTeam = this.newSoccerMatch.visitantTeam.team;
+      let teamHome = this.newSoccerMatch.homeTeam.team;
       let goals = +this.newSoccerMatch.homeTeam.goals;
       let adversaryGoals = +this.newSoccerMatch.visitantTeam.goals;
-      this.newSoccerMatch.homeTeam.team.endOfSoccerMatch(adversaryTeam, goals, adversaryGoals);
-      event.$emit('show-team-list');
+     
+      teamHome.endOfSoccerMatch(adversaryTeam, goals, adversaryGoals);
+     
+      store.commit('update', teamHome);
+      store.commit('update', adversaryTeam);
+      store.commit('show-team-list');
     },
     initSoccer(teams){
       let homeIndex = Math.floor(Math.random() * 20),

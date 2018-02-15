@@ -15,16 +15,20 @@ export default {
     <div class="container">
       <div class="row">
         <h3>Tabela campeonato brasileiro série A 2016</h3>
-        
-        <div v-show="view == 'table'">
+        <br/><br/>        
+        <a class="btn btn-default" @click.prevent="showTable">Tabela</a>
+        <a class="btn btn-primary" @click.prevent="showNewSoccer">Novo jogo</a>
+        <a class="btn btn-warning" @click.prevent="showZone">Ver Zona</a>
+        <br>
+        <div v-if="view == 'table'">
           <team-list></team-list>
         </div>
         
-        <div v-show="view == 'newSoccer'">
+        <div v-if="view == 'newSoccer'">
           <team-soccer></team-soccer>
         </div>
 
-        <div v-show="view == 'zone'">
+        <div v-if="view == 'zone'">
           <team-zone></team-zone>
         </div>
       </div>
@@ -39,8 +43,14 @@ export default {
     }
   },
   methods:{
-    showView(view){
-      this.view = view;
+    showTable(){
+      store.commit('show-team-list');      
+    },
+    showNewSoccer(){
+      store.commit('show-team-newSoccer');
+    },
+    showZone(){
+      store.commit('show-team-zone');
     }
   }
 };
